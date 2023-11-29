@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spam Detection</title>
+    <style>
+        body{
+            color: black;
+            background-color: rgb(73, 198, 211);
+            text-align: center;
+        }
+         
+        button{ 
+            color: white;
+            background-color: rgb(19, 32, 58);
+            border-radius: 15px;
+            border: none;
+            font-size: 25px;
+            font-weight: 60;
+            padding: 5px;
+            margin: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Email Spam Classifier</h1>
+    <div>
+        <form method="POST" action="/predict">
+            <textarea rows="30" cols="65" name="email-body" placeholder="Enter or paste your Email"
+                autocomplete="off"> {{ email }} </textarea> 
+            <div>
+                <button>Check Spam</button>
+                <a href="/"><button>Reset</button></a>
+            </div>
+        </form>
+    </div>
+            {% if email|trim == "" %} 
+                <h2></h2>
+            {% elif predictions == 1 %}
+                <h2 style="color: red;">SPAM</h2>
+            {% else %}
+                <h2 style="color: green;">NOT SPAM</h2>
+            {% endif %} 
+</body>
+</html>
