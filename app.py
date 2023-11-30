@@ -1,7 +1,6 @@
 from flask import Flask, render_template, request
 #from tokenize import tokenizer
-import pickle
-from tokenize import tokenize
+import pickle 
 
 cv = pickle.load(open("models/cv.pkl", "rb"))
 model = pickle.load(open("models/clf.pkl", "rb"))
@@ -27,5 +26,5 @@ def predict():
 
 
 if __name__ == "__main__":
-    #app.run(host="0.0.0.0", port=8080, debug=True)
-    app.run(debug=True)
+    app.run(host="0.0.0.0", port=8080, debug=True)
+    #app.run(debug=True)
