@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, jsonify
 #from tokenize import tokenizer
 import pickle 
 
@@ -16,13 +16,26 @@ def home(): # Retrieve the entered text
 def predict():
     if request.method == "POST":
         email = request.form.get("email-body") # Retrieve the entered text
-    toknized_email = cv.transform([email])
-    predictions = model.predict(toknized_email)
+    tokenized_email = cv.transform([email])
+    predictions = model.predict(tokenized_email)
     if predictions == 1:
         predictions = 1
     else:
         predictions = -1
     return render_template("home.html", predictions=predictions, email=email)
+
+
+@app.route("/api/predict", methods=["POST"])
+def api_predict():
+    data = request.get_json(force=True)
+    email = data['body']
+    tokenized_email = cv.transform([email])
+    predictions = model.predict(tokenized_email)
+    if predictions == 1:
+        predictions = 1
+    else:
+        predictions = -1
+    return jsonify({"predictions": predictions, "email":email})
 
 
 if __name__ == "__main__":
